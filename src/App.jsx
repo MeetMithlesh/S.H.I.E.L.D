@@ -1,11 +1,17 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Dashboard from './components/Dashboard';
 import LearningPath from './components/LearningPath';
-import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <LearningPath />
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/learning-path" element={<LearningPath />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
