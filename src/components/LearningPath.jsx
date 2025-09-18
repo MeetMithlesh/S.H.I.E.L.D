@@ -1,24 +1,120 @@
 import React, { useState, useEffect } from 'react';
 import '../css/LearningPath.css';
+import ModulePage from './ModulePage';
+import QuizPage from './QuizPage';
+import SimulationPage from './SimulationPage';
+import ChallengePage from './ChallengePage';
+import CommunityPage from './CommunityPage';
+import CertificatePage from './CertificatePage';
 
 const LearningPath = () => {
   const [currentLevel, setCurrentLevel] = useState(1);
   const [unlockedLevels, setUnlockedLevels] = useState([1]);
   const [completedLevels, setCompletedLevels] = useState([]);
   const [userStars, setUserStars] = useState(0);
+  const [activeComponent, setActiveComponent] = useState(null);
+  const [isMainPath, setIsMainPath] = useState(true);
 
-  // Path data with different level types
+  // Path data with YouTube video URLs and quiz data
   const pathData = [
-    { id: 1, type: 'module', title: 'What is a Disaster?', icon: '📚', description: 'Learn about different types of disasters' },
-    { id: 2, type: 'quiz', title: 'Safety Quiz', icon: '🧠', description: 'Test your disaster knowledge' },
-    { id: 3, type: 'module', title: 'Earthquake Safety', icon: '🏠', description: 'How to stay safe during earthquakes' },
-    { id: 4, type: 'simulation', title: 'Virtual Earthquake Drill', icon: '🚨', description: 'Practice earthquake response' },
-    { id: 5, type: 'quiz', title: 'Emergency Quiz', icon: '⚡', description: 'Quick emergency response test' },
-    { id: 6, type: 'module', title: 'Flood Safety', icon: '🌊', description: 'Learn flood preparedness' },
-    { id: 7, type: 'simulation', title: 'Fire Drill Practice', icon: '🔥', description: 'Virtual fire safety drill' },
-    { id: 8, type: 'challenge', title: 'Hero Challenge', icon: '🏆', description: 'Become a safety hero!' },
-    { id: 9, type: 'community', title: 'Help Friends', icon: '👥', description: 'Share safety knowledge' },
-    { id: 10, type: 'certificate', title: 'Safety Champion', icon: '🎖️', description: 'Earn your certificate!' }
+    { 
+      id: 1, 
+      type: 'module', 
+      title: 'What is a Disaster?', 
+      icon: '📚', 
+      description: 'Learn about different types of disasters',
+      videoUrl: 'https://www.youtube.com/embed/BLEPakj1YTY',
+      content: 'Understanding natural and man-made disasters'
+    },
+    { 
+      id: 2, 
+      type: 'quiz', 
+      title: 'Safety Quiz', 
+      icon: '🧠', 
+      description: 'Test your disaster knowledge',
+      questions: [
+        {
+          question: "What should you do first during an earthquake?",
+          options: ["Run outside", "Drop, Cover, Hold", "Stand in doorway", "Call 911"],
+          correct: 1
+        },
+        {
+          question: "How many days of emergency supplies should you have?",
+          options: ["1 day", "3 days", "1 week", "1 month"],
+          correct: 1
+        }
+      ]
+    },
+    { 
+      id: 3, 
+      type: 'module', 
+      title: 'Earthquake Safety', 
+      icon: '🏠', 
+      description: 'How to stay safe during earthquakes',
+      videoUrl: 'https://www.youtube.com/embed/BLEPakj1YTY',
+      content: 'Earthquake preparedness and response techniques'
+    },
+    { 
+      id: 4, 
+      type: 'simulation', 
+      title: 'Virtual Earthquake Drill', 
+      icon: '🚨', 
+      description: 'Practice earthquake response',
+      scenario: 'earthquake'
+    },
+    { 
+      id: 5, 
+      type: 'quiz', 
+      title: 'Emergency Quiz', 
+      icon: '⚡', 
+      description: 'Quick emergency response test',
+      questions: [
+        {
+          question: "What's the emergency number in most countries?",
+          options: ["911", "999", "112", "All of the above"],
+          correct: 3
+        }
+      ]
+    },
+    { 
+      id: 6, 
+      type: 'module', 
+      title: 'Flood Safety', 
+      icon: '🌊', 
+      description: 'Learn flood preparedness',
+      videoUrl: 'https://www.youtube.com/embed/BLEPakj1YTY',
+      content: 'Flood safety and evacuation procedures'
+    },
+    { 
+      id: 7, 
+      type: 'simulation', 
+      title: 'Fire Drill Practice', 
+      icon: '🔥', 
+      description: 'Virtual fire safety drill',
+      scenario: 'fire'
+    },
+    { 
+      id: 8, 
+      type: 'challenge', 
+      title: 'Hero Challenge', 
+      icon: '🏆', 
+      description: 'Become a safety hero!',
+      challengeType: 'emergency_kit'
+    },
+    { 
+      id: 9, 
+      type: 'community', 
+      title: 'Help Friends', 
+      icon: '👥', 
+      description: 'Share safety knowledge'
+    },
+    { 
+      id: 10, 
+      type: 'certificate', 
+      title: 'Safety Champion', 
+      icon: '🎖️', 
+      description: 'Earn your certificate!'
+    }
   ];
 
   // Calculate node positions for zigzag pattern
@@ -34,21 +130,31 @@ const LearningPath = () => {
   // Handle level completion
   const handleLevelClick = (levelId) => {
     if (unlockedLevels.includes(levelId)) {
+      const levelData = pathData.find(level => level.id === levelId);
       setCurrentLevel(levelId);
-      
-      // Simulate level completion (you'll replace this with actual logic)
-      setTimeout(() => {
-        if (!completedLevels.includes(levelId)) {
-          setCompletedLevels([...completedLevels, levelId]);
-          setUserStars(userStars + 1);
-          
-          // Unlock next level
-          if (levelId < pathData.length && !unlockedLevels.includes(levelId + 1)) {
-            setUnlockedLevels([...unlockedLevels, levelId + 1]);
-          }
-        }
-      }, 2000);
+      setActiveComponent(levelData.type);
+      setIsMainPath(false);
     }
+  };
+
+  // Handle returning to main path
+  const returnToPath = () => {
+    setIsMainPath(true);
+    setActiveComponent(null);
+  };
+
+  // Handle level completion from components
+  const handleLevelComplete = (levelId) => {
+    if (!completedLevels.includes(levelId)) {
+      setCompletedLevels([...completedLevels, levelId]);
+      setUserStars(userStars + 1);
+      
+      // Unlock next level
+      if (levelId < pathData.length && !unlockedLevels.includes(levelId + 1)) {
+        setUnlockedLevels([...unlockedLevels, levelId + 1]);
+      }
+    }
+    returnToPath();
   };
 
   // Get level type specific styling
@@ -63,6 +169,69 @@ const LearningPath = () => {
     };
     return typeClasses[type] || 'level-default';
   };
+
+  // Render specific component based on activeComponent
+  const renderActiveComponent = () => {
+    const currentLevelData = pathData.find(level => level.id === currentLevel);
+    
+    switch (activeComponent) {
+      case 'module':
+        return (
+          <ModulePage
+            levelData={currentLevelData}
+            onComplete={() => handleLevelComplete(currentLevel)}
+            onBack={returnToPath}
+          />
+        );
+      case 'quiz':
+        return (
+          <QuizPage
+            levelData={currentLevelData}
+            onComplete={() => handleLevelComplete(currentLevel)}
+            onBack={returnToPath}
+          />
+        );
+      case 'simulation':
+        return (
+          <SimulationPage
+            levelData={currentLevelData}
+            onComplete={() => handleLevelComplete(currentLevel)}
+            onBack={returnToPath}
+          />
+        );
+      case 'challenge':
+        return (
+          <ChallengePage
+            levelData={currentLevelData}
+            onComplete={() => handleLevelComplete(currentLevel)}
+            onBack={returnToPath}
+          />
+        );
+      case 'community':
+        return (
+          <CommunityPage
+            levelData={currentLevelData}
+            onComplete={() => handleLevelComplete(currentLevel)}
+            onBack={returnToPath}
+          />
+        );
+      case 'certificate':
+        return (
+          <CertificatePage
+            levelData={currentLevelData}
+            onComplete={() => handleLevelComplete(currentLevel)}
+            onBack={returnToPath}
+            totalStars={userStars}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  if (!isMainPath) {
+    return renderActiveComponent();
+  }
 
   return (
     <div className="learning-path-container">

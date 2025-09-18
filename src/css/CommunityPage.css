@@ -1,0 +1,387 @@
+.community-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+  color: #2c3e50;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.community-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="8" fill="%23ffffff08"/><circle cx="80" cy="40" r="6" fill="%23ffffff05"/><circle cx="40" cy="70" r="10" fill="%23ffffff06"/><circle cx="70" cy="80" r="5" fill="%23ffffff07"/></svg>') repeat;
+  animation: communityFloat 30s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes communityFloat {
+  0% { background-position: 0 0; }
+  100% { background-position: 100px 100px; }
+}
+
+.community-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 3px solid #4ecdc4;
+}
+
+.back-btn {
+  background: linear-gradient(45deg, #4ecdc4, #44a08d);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+}
+
+.back-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
+}
+
+.community-title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.community-icon {
+  font-size: 2.5rem;
+  animation: communityPulse 2s infinite;
+}
+
+@keyframes communityPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.community-title h1 {
+  margin: 0;
+  font-size: 2rem;
+  background: linear-gradient(45deg, #4ecdc4, #44a08d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.help-counter {
+  background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+  animation: counterGlow 3s ease-in-out infinite;
+}
+
+@keyframes counterGlow {
+  0%, 100% { box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3); }
+  50% { box-shadow: 0 6px 25px rgba(255, 107, 107, 0.5); }
+}
+
+.community-content {
+  padding: 40px 30px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.share-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 25px;
+  padding: 40px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.share-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(78, 205, 196, 0.1), transparent);
+  animation: shimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.share-section h2 {
+  color: #2c3e50;
+  margin-bottom: 25px;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.tip-input {
+  width: 100%;
+  min-height: 120px;
+  padding: 20px;
+  border: 3px solid #e0e0e0;
+  border-radius: 15px;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  resize: vertical;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.8);
+  color: #2c3e50;
+  margin-bottom: 25px;
+}
+
+.tip-input:focus {
+  outline: none;
+  border-color: #4ecdc4;
+  box-shadow: 0 0 15px rgba(78, 205, 196, 0.3);
+  background: rgba(255, 255, 255, 1);
+}
+
+.tip-input::placeholder {
+  color: #95a5a6;
+  font-style: italic;
+}
+
+.share-btn {
+  background: linear-gradient(45deg, #4ecdc4, #44a08d);
+  border: none;
+  padding: 15px 30px;
+  border-radius: 25px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(78, 205, 196, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.share-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(78, 205, 196, 0.4);
+}
+
+.share-btn:active {
+  transform: scale(0.98);
+}
+
+.tips-feed {
+  margin-top: 40px;
+}
+
+.tips-feed h3 {
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.tip-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.tip-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.tip-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(45deg, #4ecdc4, #44a08d);
+}
+
+.tip-content {
+  color: #2c3e50;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  padding: 10px 0;
+}
+
+.like-btn {
+  background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  float: right;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.like-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 3px 15px rgba(255, 107, 107, 0.3);
+}
+
+.like-btn:active {
+  transform: scale(0.95);
+}
+
+.community-success {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 25px;
+  padding: 50px;
+  text-align: center;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.community-success::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="%23ffd93d"/><circle cx="80" cy="30" r="1.5" fill="%234ecdc4"/><circle cx="30" cy="70" r="2.5" fill="%23ff6b6b"/><circle cx="70" cy="80" r="1" fill="%23667eea"/></svg>') repeat;
+  animation: successSparkle 4s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes successSparkle {
+  0% { background-position: 0 0; }
+  100% { background-position: 100px 100px; }
+}
+
+.community-success h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  animation: successBounce 2s infinite;
+}
+
+@keyframes successBounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+.community-success p {
+  color: #34495e;
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+.complete-btn {
+  background: linear-gradient(45deg, #4ecdc4, #44a08d);
+  border: none;
+  padding: 20px 40px;
+  border-radius: 50px;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(78, 205, 196, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.complete-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(78, 205, 196, 0.4);
+}
+
+.complete-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.complete-btn:hover::before {
+  left: 100%;
+}
+
+/* Empty state for tips feed */
+.tips-feed:empty::after {
+  content: "🌟 Be the first to share a safety tip! Your knowledge can help save lives! 🌟";
+  display: block;
+  background: rgba(255, 255, 255, 0.9);
+  color: #2c3e50;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-style: italic;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .community-header {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+  }
+  
+  .community-content {
+    padding: 20px;
+  }
+  
+  .share-section {
+    padding: 25px;
+  }
+  
+  .tip-input {
+    font-size: 1rem;
+  }
+  
+  .community-title h1 {
+    font-size: 1.5rem;
+  }
+  
+  .help-counter {
+    font-size: 0.9rem;
+    padding: 10px 15px;
+  }
+}

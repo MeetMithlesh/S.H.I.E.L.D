@@ -1,7 +1,50 @@
 * {
-  box-sizing:border-box;
+  box-sizing: border-box;
 }
 
+/* Fix horizontal overflow */
+html, body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* Update the getNodePosition logic to prevent overflow */
+.path-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  max-width: 280px; /* Prevent nodes from being too wide */
+  word-wrap: break-word;
+}
+
+/* Adjust left positions to stay within viewport */
+.path-node[style*="left: 75%"] {
+  left: min(75%, calc(100vw - 150px)) !important;
+}
+
+.path-node[style*="left: 25%"] {
+  left: max(25%, 150px) !important;
+}
+
+/* Ensure quiz levels are clickable */
+.level-quiz.unlocked {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.level-quiz.unlocked:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Ensure locked levels are not clickable */
+.level-quiz.locked {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Your existing CSS continues below... */
 .learning-path-container {
   min-height: 100vh;
   width: 100%;
@@ -10,6 +53,9 @@
   overflow-x: hidden;
   font-family: 'Comic Sans MS', cursive, sans-serif;
 }
+
+
+
 
 /* Header Styles */
 .path-header {

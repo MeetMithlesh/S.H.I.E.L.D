@@ -5,6 +5,47 @@
   /* padding: 2rem; */
   text-align: center;
 }
+/* Fix horizontal overflow - Add to App.css or index.css */
+html, body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.learning-path-container {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+.path-scroll-area {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.pathway-wrapper {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Fix SVG path overflow */
+.path-line {
+  max-width: 100%;
+  overflow: visible;
+}
+
+/* Ensure path nodes don't extend beyond viewport */
+.path-node {
+  max-width: calc(100vw - 40px);
+}
+
 
 .logo {
   height: 6em;
