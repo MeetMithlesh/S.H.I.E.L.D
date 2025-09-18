@@ -127,9 +127,12 @@ const Dashboard = () => {
   };
 
   const handleQuestStart = () => {
-    setShowConfetti(true);
-    setTimeout(() => setShowConfetti(false), 2000);
-  };
+  setShowConfetti(true);
+  setTimeout(() => {
+    setShowConfetti(false);
+    navigate('/disaster-prep-game'); 
+  }, 1000);
+};
 
   // Badge unlock function
   const unlockBadge = (badgeId) => {
@@ -201,15 +204,13 @@ const Dashboard = () => {
       {/* Top Header */}
       <div className="dashboard-header">
         <div className="header-left">
-          <div className="home-icon">🏠</div>
-          <h1>Dashboard</h1>
-        </div>
+  
+  <img src="OVER-removebg-preview.png" alt="Your Logo" className="logo-image" />
+</div>
+
         <div className="header-right">
           <div className="achievement-badges">
-            <div className="badge-item crown">
-              <span className="badge-icon">👑</span>
-              <span className="badge-count">{userData.achievements.crown}</span>
-            </div>
+            
             <div className="badge-item streak">
               <span className="badge-icon">🔥</span>
               <span className="badge-count">{userData.achievements.streak}</span>
@@ -218,10 +219,7 @@ const Dashboard = () => {
               <span className="badge-icon">🏆</span>
               <span className="badge-count">{userData.achievements.trophy}</span>
             </div>
-            <div className="badge-item coins">
-              <span className="badge-icon">🪙</span>
-              <span className="badge-count">{userData.achievements.coins}</span>
-            </div>
+            
           </div>
           <div className="user-profile">
             <div className="user-avatar">{userData.avatar}</div>
@@ -252,102 +250,61 @@ const Dashboard = () => {
           </button>
         </div>
 
-        
-      
 
-{/* Learning Roadmap - Improved Central Feature */}
+{/* Learning Roadmap - Using Image Background */}
 <div className="roadmap-card" onClick={handleLearningRoadmap}>
   <div className="card-header">
     <h2>LEARNING ROADMAP</h2>
   </div>
   <div className="roadmap-content">
-    <div className="roadmap-scene">
-      {/* Sky with floating clouds */}
-      <div className="sky">
-        <div className="cloud cloud1">☁️</div>
-        <div className="cloud cloud2">☁️</div>
-        <div className="cloud cloud3">☁️</div>
+    <div className="roadmap-image-container">
+      {/* Background image */}
+      <img 
+        src="Screenshot 2025-09-10 230153.png" 
+        alt="Learning Roadmap" 
+        className="roadmap-background-image"
+      />
+      
+      {/* Interactive overlay nodes */}
+      <div className="interactive-nodes-overlay">
+        {/* Level 1 - Completed */}
+        <div className="interactive-node completed" style={{bottom: '35%', left: '22%'}}>
+          <div className="node-indicator completed-indicator">
+            <span>✓</span>
+          </div>
+        </div>
+
+        {/* Level 2 - Completed */}
+        <div className="interactive-node completed" style={{bottom: '55%', left: '35%'}}>
+          <div className="node-indicator completed-indicator">
+            <span>✓</span>
+          </div>
+        </div>
+
+        {/* Level 3 - Current */}
+        <div className="interactive-node current" style={{bottom: '70%', left: '60%'}}>
+          <div className="node-indicator current-indicator">
+            <span>3</span>
+          </div>
+        </div>
+
+        {/* Level 4 - Locked */}
+        <div className="interactive-node locked" style={{bottom: '50%', right: '25%'}}>
+          <div className="node-indicator locked-indicator">
+            <span>🔒</span>
+          </div>
+        </div>
       </div>
       
-      {/* Main learning path with nodes */}
-      <div className="learning-path-container">
-        {/* Path SVG */}
-        <svg className="path-svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
-          <path
-            d="M80 250 Q150 200 200 150 Q250 100 320 100"
-            stroke="#FFA500"
-            strokeWidth="8"
-            fill="none"
-            className="animated-learning-path"
-          />
-        </svg>
-
-        {/* Level Nodes */}
-        <div className="level-node completed" style={{bottom: '50px', left: '80px'}}>
-          <div className="node-wrapper">
-            <div className="node-circle">
-              <span className="node-number">1</span>
-              <div className="completion-check">✓</div>
-            </div>
-          </div>
-        </div>
-
-        <div className="level-node completed" style={{bottom: '120px', left: '180px'}}>
-          <div className="node-wrapper">
-            <div className="node-circle">
-              <span className="node-number">2</span>
-              <div className="completion-check">✓</div>
-            </div>
-          </div>
-        </div>
-
-        <div className="level-node current" style={{bottom: '180px', left: '280px'}}>
-          <div className="node-wrapper">
-            <div className="node-circle current-glow">
-              <span className="node-number">3</span>
-              <div className="current-pulse"></div>
-            </div>
-          </div>
-        </div>
-
-        <div className="level-node locked" style={{bottom: '180px', right: '50px'}}>
-          <div className="node-wrapper">
-            <div className="node-circle">
-              <span className="node-number">4</span>
-              <div className="lock-icon">🔒</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Disaster Zone Labels with Modern Design */}
-      <div className="disaster-zones">
-        <div className="zone-card floods-zone">
-          <div className="zone-icon">🏠</div>
-          <span className="zone-text">FLOODS</span>
-        </div>
-        
-        <div className="zone-card fires-zone">
-          <div className="zone-icon">🔥</div>
-          <span className="zone-text">FIRES</span>
-        </div>
-        
-        <div className="zone-card heatwaves-zone">
-          <div className="zone-icon">🌡️</div>
-          <span className="zone-text">HEATWAVES</span>
-        </div>
-      </div>
-
-      {/* Decorative Elements */}
-      <div className="decorative-elements">
-        <div className="tree tree1">🌳</div>
-        <div className="tree tree2">🌲</div>
+      {/* Hover overlay for interactivity */}
+      <div className="roadmap-hover-overlay">
+        <div className="hover-text">Click to explore your learning journey!</div>
       </div>
     </div>
   </div>
 </div>
 
-
+      
         {/* Daily Streak */}
         <div className="streak-card">
           <div className="card-header">

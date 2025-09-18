@@ -8,8 +8,25 @@
   font-family: 'Comic Sans MS', cursive, sans-serif;
   padding: 20px;
   position: relative;
+  width: 100%; /* Ensure full width */
+  max-width: 100vw;
   overflow-x: hidden;
 }
+
+.logo-image {
+  height: 6.5rem;
+  width: auto; 
+  margin: 0;
+  object-fit: contain; 
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1)); /* Match original text-shadow effect */
+}
+
+/* Optional: Add hover effect for the logo */
+.logo-image:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
 
 /* Confetti Animation */
 .confetti-container {
@@ -106,7 +123,7 @@
   justify-content: space-between;
   align-items: center;
   background: linear-gradient(135deg, #FFD93D 0%, #FFA500 100%);
-  padding: 15px 25px;
+  padding: 4px 25px;
   border-radius: 25px;
   margin-bottom: 20px;
   box-shadow: 0 8px 32px rgba(255, 217, 61, 0.4);
@@ -206,8 +223,9 @@
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: auto auto auto;
   gap: 20px;
-  max-width: 1400px;
+  max-width: 100%;
   margin: 0 auto;
+  padding: 0; 
 }
 
 /* Card Base Styles */
@@ -281,6 +299,9 @@
 .start-button {
   background: linear-gradient(135deg, #FFD93D, #FFA500);
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 12px 30px;
   border-radius: 25px;
   font-weight: bold;
@@ -289,13 +310,16 @@
   cursor: pointer;
   transition: transform 0.3s ease;
   box-shadow: 0 4px 15px rgba(255, 217, 61, 0.4);
+  margin: 0 auto; /* Add this line to ensure centering */
+  width: fit-content; /* Add this line to make button width fit its content */
 }
+
 
 .start-button:hover {
   transform: scale(1.05);
 }
 
-/* Learning Roadmap Card - Improved Design */
+/* Learning Roadmap Card - Image Based with Perfect Fit */
 .roadmap-card {
   grid-column: 2;
   grid-row: 1 / 3;
@@ -310,6 +334,8 @@
   background: #154D71;
   padding: 20px;
   text-align: center;
+  z-index: 10;
+  position: relative;
 }
 
 .roadmap-card .card-header h2 {
@@ -321,46 +347,37 @@
 }
 
 .roadmap-content {
-  height: 450px;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, #87CEEB 0%, #98FB98 100%);
+  padding: 0;
+  margin: 0;
+  /* Use exact aspect ratio or let image determine height */
+  height: auto; /* Remove fixed aspect ratio */
+  min-height: 300px; /* Set minimum height */
 }
 
-.roadmap-scene {
+.roadmap-image-container {
+  position: relative; /* Change from absolute to relative */
+  width: 100%;
+  height: auto; /* Let image determine height */
+  padding: 0;
+  margin: 0;
+  display: flex; /* Add flex to prevent white space */
+}
+
+.roadmap-background-image {
   width: 100%;
   height: 100%;
-  position: relative;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border: none;
+  margin: 0;
+  padding: 0;
 }
 
-/* Sky and Clouds - Improved */
-.sky {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 30%;
-  z-index: 1;
-}
-
-.cloud {
-  position: absolute;
-  font-size: 2.5rem;
-  animation: float-cloud 12s ease-in-out infinite;
-  opacity: 0.8;
-}
-
-.cloud1 { top: 10%; left: 15%; animation-delay: 0s; }
-.cloud2 { top: 20%; right: 20%; animation-delay: 4s; }
-.cloud3 { top: 15%; left: 60%; animation-delay: 8s; }
-
-@keyframes float-cloud {
-  0%, 100% { transform: translateX(0px) translateY(0px); }
-  33% { transform: translateX(15px) translateY(-5px); }
-  66% { transform: translateX(-10px) translateY(5px); }
-}
-
-/* Learning Path Container */
-.learning-path-container {
+/* Interactive Nodes Overlay */
+.interactive-nodes-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -369,230 +386,103 @@
   z-index: 5;
 }
 
-/* Path SVG */
-.path-svg {
+.interactive-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.interactive-node:hover {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.node-indicator {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+/* Completed Node */
+.completed-indicator {
+  background: #4ECDC4;
+  color: white;
+  border: 3px solid white;
+  animation: completed-pulse 3s ease-in-out infinite;
+}
+
+@keyframes completed-pulse {
+  0%, 100% { box-shadow: 0 4px 15px rgba(78, 205, 196, 0.4); }
+  50% { box-shadow: 0 4px 25px rgba(78, 205, 196, 0.8); }
+}
+
+/* Current Node */
+.current-indicator {
+  background: linear-gradient(135deg, #FFD93D, #FFA500);
+  color: #333;
+  border: 3px solid #154D71;
+  animation: current-pulse 2s ease-in-out infinite;
+}
+
+@keyframes current-pulse {
+  0% { 
+    box-shadow: 0 4px 15px rgba(255, 217, 61, 0.5), 
+                0 0 0 0 rgba(255, 217, 61, 0.7); 
+  }
+  50% { 
+    box-shadow: 0 4px 15px rgba(255, 217, 61, 0.5), 
+                0 0 0 15px rgba(255, 217, 61, 0); 
+  }
+  100% { 
+    box-shadow: 0 4px 15px rgba(255, 217, 61, 0.5), 
+                0 0 0 0 rgba(255, 217, 61, 0); 
+  }
+}
+
+/* Locked Node */
+.locked-indicator {
+  background: rgba(169, 169, 169, 0.8);
+  color: #666;
+  border: 3px solid #999;
+  opacity: 0.7;
+}
+
+/* Hover Overlay */
+.roadmap-hover-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 2;
-}
-
-.animated-learning-path {
-  stroke-dasharray: 20 10;
-  animation: path-flow 4s linear infinite;
-  filter: drop-shadow(0 4px 8px rgba(255, 165, 0, 0.4));
-}
-
-@keyframes path-flow {
-  0% { stroke-dashoffset: 0; }
-  100% { stroke-dashoffset: 30; }
-}
-
-/* Level Nodes - Modern Design */
-.level-node {
-  position: absolute;
-  z-index: 10;
-  transform: translate(-50%, -50%);
-}
-
-.node-wrapper {
-  position: relative;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.node-wrapper:hover {
-  transform: scale(1.1);
-}
-
-.node-circle {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+  background: rgba(21, 77, 113, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  border: 4px solid #154D71;
-  background: white;
-  box-shadow: 0 8px 25px rgba(21, 77, 113, 0.3);
-  transition: all 0.3s ease;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 8;
 }
 
-.node-number {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #154D71;
-  z-index: 2;
+.roadmap-card:hover .roadmap-hover-overlay {
+  opacity: 1;
 }
 
-/* Completed Node Styling */
-.level-node.completed .node-circle {
-  background: linear-gradient(135deg, #4ECDC4, #44A08D);
-  border-color: #4ECDC4;
-  box-shadow: 0 8px 25px rgba(78, 205, 196, 0.5);
-}
-
-.level-node.completed .node-number {
+.hover-text {
   color: white;
-}
-
-.completion-check {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background: #FFD93D;
-  border: 3px solid white;
-  border-radius: 50%;
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  color: #333;
+  font-size: 1.3rem;
   font-weight: bold;
-  z-index: 3;
-}
-
-/* Current Node Styling */
-.level-node.current .node-circle {
-  background: linear-gradient(135deg, #FFD93D, #FFA500);
-  border-color: #FFD93D;
-  animation: current-node-pulse 2s ease-in-out infinite;
-}
-
-.level-node.current .node-number {
-  color: #333;
-}
-
-@keyframes current-node-pulse {
-  0% { 
-    box-shadow: 0 8px 25px rgba(255, 217, 61, 0.5), 
-                0 0 0 0 rgba(255, 217, 61, 0.7); 
-  }
-  50% { 
-    box-shadow: 0 8px 25px rgba(255, 217, 61, 0.5), 
-                0 0 0 20px rgba(255, 217, 61, 0); 
-  }
-  100% { 
-    box-shadow: 0 8px 25px rgba(255, 217, 61, 0.5), 
-                0 0 0 0 rgba(255, 217, 61, 0); 
-  }
-}
-
-/* Locked Node Styling */
-.level-node.locked .node-circle {
-  background: #e9ecef;
-  border-color: #adb5bd;
-  opacity: 0.7;
-}
-
-.level-node.locked .node-number {
-  color: #6c757d;
-}
-
-.lock-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.5rem;
-  z-index: 3;
-}
-
-/* Disaster Zones - Modern Card Design */
-.disaster-zones {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 3;
-}
-
-.zone-card {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 12px 16px;
+  text-align: center;
+  padding: 20px;
+  background: rgba(0,0,0,0.3);
   border-radius: 15px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.zone-card:hover {
-  transform: translateY(-5px);
-}
-
-.floods-zone {
-  bottom: 80px;
-  left: 30px;
-  border-color: #4ECDC4;
-}
-
-.fires-zone {
-  top: 120px;
-  right: 40px;
-  border-color: #FF6B6B;
-}
-
-.heatwaves-zone {
-  bottom: 40px;
-  right: 80px;
-  border-color: #FFD93D;
-}
-
-.zone-icon {
-  font-size: 2rem;
-  margin-bottom: 5px;
-}
-
-.zone-text {
-  font-size: 0.8rem;
-  font-weight: bold;
-  color: #154D71;
-  letter-spacing: 1px;
-}
-
-/* Decorative Elements */
-.decorative-elements {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.tree {
-  position: absolute;
-  font-size: 2.5rem;
-  animation: tree-sway 6s ease-in-out infinite;
-}
-
-.tree1 {
-  bottom: 20px;
-  right: 20px;
-  animation-delay: 0s;
-}
-
-.tree2 {
-  bottom: 30px;
-  left: 20px;
-  animation-delay: 3s;
-}
-
-@keyframes tree-sway {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(1deg); }
-  75% { transform: rotate(-1deg); }
 }
 
 /* Daily Streak Card */
@@ -989,20 +879,6 @@
   transform: scale(1.1);
 }
 
-/* Hover Effects */
-.roadmap-card:hover .animated-learning-path {
-  animation-duration: 2s;
-}
-
-.roadmap-card:hover .level-node.completed .node-circle {
-  transform: rotate(360deg);
-  transition: transform 1s ease;
-}
-
-.roadmap-card:hover .cloud {
-  animation-duration: 8s;
-}
-
 /* Responsive Design */
 @media (max-width: 1200px) {
   .dashboard-grid {
@@ -1031,28 +907,7 @@
   }
   
   .roadmap-content {
-    height: 350px;
-  }
-  
-  .node-circle {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .node-number {
-    font-size: 1.5rem;
-  }
-  
-  .zone-card {
-    padding: 8px 12px;
-  }
-  
-  .zone-icon {
-    font-size: 1.5rem;
-  }
-  
-  .zone-text {
-    font-size: 0.7rem;
+    aspect-ratio: 4 / 3; /* Keep same ratio */
   }
 }
 
@@ -1094,30 +949,19 @@
   .badge-text { font-size: 0.6rem; }
   
   .roadmap-content {
-    height: 300px;
+    aspect-ratio: 4 / 3; /* Keep same ratio */
+    min-height: 250px; /* Minimum for small screens */
   }
   
-  .node-circle {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .node-number {
-    font-size: 1.2rem;
-  }
-  
-  .completion-check {
-    width: 22px;
-    height: 22px;
+  .node-indicator {
+    width: 35px;
+    height: 35px;
     font-size: 1rem;
   }
   
-  .cloud {
-    font-size: 1.8rem;
-  }
-  
-  .tree {
-    font-size: 2rem;
+  .hover-text {
+    font-size: 1.1rem;
+    padding: 15px;
   }
 }
 
@@ -1130,21 +974,18 @@
   }
   
   .roadmap-content {
-    height: 250px;
+    aspect-ratio: 4 / 3; /* Keep same ratio */
+    min-height: 200px;
   }
   
-  .node-circle {
-    width: 45px;
-    height: 45px;
+  .node-indicator {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
   }
   
-  .node-number {
+  .hover-text {
     font-size: 1rem;
-  }
-  
-  .completion-check {
-    width: 20px;
-    height: 20px;
-    font-size: 0.8rem;
+    padding: 12px;
   }
 }
