@@ -310,9 +310,11 @@
 
 /* Progress indicator */
 .progress-indicator {
-  position: fixed;
-  top: 50%;
-  right: 30px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 73%;
+  left: 30px;
   transform: translateY(-50%);
   background: rgba(255, 255, 255, 0.9);
   padding: 20px;
